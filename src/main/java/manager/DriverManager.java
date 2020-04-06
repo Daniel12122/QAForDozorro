@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
     private static DriverManager instance;
-    private ThreadLocal<WebDriver> drivers;
+    private static ThreadLocal<WebDriver> drivers;
 
     private DriverManager() {
         drivers = new ThreadLocal<WebDriver>();

@@ -5,6 +5,7 @@ import base.BasePage;
 import base.LoadableComponent;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
+import manager.DriverManager;
 import model.User;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,7 +13,6 @@ import org.openqa.selenium.support.FindBy;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.awaitility.Awaitility.given;
 import static org.testng.Assert.assertTrue;
 
 @Slf4j
@@ -62,7 +62,7 @@ public class GooglePage extends BasePage implements LoadableComponent {
     @Step
     public MainPage openGoogleEmail() {
         log.info("Open Google Email account");
-        driver.get("https://mail.google.com/mail/u/0/?ogbl#inbox");
+        DriverManager.getInstance().getDriver().get("https://mail.google.com/mail/u/0/#inbox");
         verifyPageLoaded();
         log.info("Wait for email");
         await()
@@ -74,8 +74,8 @@ public class GooglePage extends BasePage implements LoadableComponent {
         log.info("Open mail with activated code");
         messageActivateGoogleEmail.click();
         log.info("Open link for activated Google email");
-        String s = linkActivateGoogleEmail.getText();
-        driver.get(s);
+        String linkActivateGoogleEmailText = linkActivateGoogleEmail.getText();
+        driver.get(linkActivateGoogleEmailText);
         log.info("Open Main Page");
         logo.click();
         return new MainPage();
